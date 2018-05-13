@@ -2,6 +2,10 @@ package view;
 
 import dao.CombosDAO;
 import dao.clienteDAO;
+import dao.funcionarioDAO;
+import dao.universidadeDAO;
+import dao.veiculoDAO;
+import dao.viagemDAO;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -25,10 +29,14 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
         edHoraIda.setFont(new java.awt.Font("Tahoma", 0, 14));
         edHoraVolta.setFont(new java.awt.Font("Tahoma", 0, 14));
         edValor.setFont(new java.awt.Font("Tahoma", 0, 14));
+        edDataFim.setFont(new java.awt.Font("Tahoma", 0, 14));
+        edDataIni.setFont(new java.awt.Font("Tahoma", 0, 14));
         
         Formatacao.formatarHora(edHoraIda);
         Formatacao.formatarHora(edHoraVolta);
         Formatacao.formatarValor(edValor);
+        Formatacao.formatarData(edDataFim);
+        Formatacao.formatarData(edDataIni);
         
         edUniversidade.removeAllItems();
         new CombosDAO().popularCombo("universidade","codigo, nome","","nome", edUniversidade);
@@ -39,6 +47,7 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
         edVeiculo.removeAllItems();
         new CombosDAO().popularCombo("veiculo","codigo, (marca || ' ' || modelo || ' ' || placa) AS descricao","","descricao", edVeiculo);
             
+        
 
         edDiaSemana.removeAllItems();
         new CombosDAO().popularComboSemanas(edDiaSemana);
@@ -66,7 +75,7 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
         edVeiculo = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        edCapacidade = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbPassageiros = new javax.swing.JTable();
@@ -75,6 +84,10 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
         edHoraIda = new javax.swing.JFormattedTextField();
         edHoraVolta = new javax.swing.JFormattedTextField();
         edValor = new javax.swing.JFormattedTextField();
+        jLabel12 = new javax.swing.JLabel();
+        edDataIni = new javax.swing.JFormattedTextField();
+        jLabel13 = new javax.swing.JLabel();
+        edDataFim = new javax.swing.JFormattedTextField();
         pnLista = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         edBusca = new javax.swing.JTextField();
@@ -174,9 +187,9 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
         jLabel9.setForeground(new java.awt.Color(33, 33, 33));
         jLabel9.setText("Capacidade do veiculo:");
 
-        jTextField4.setBackground(new java.awt.Color(255, 255, 204));
-        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField4.setForeground(new java.awt.Color(33, 33, 33));
+        edCapacidade.setBackground(new java.awt.Color(255, 255, 204));
+        edCapacidade.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        edCapacidade.setForeground(new java.awt.Color(33, 33, 33));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(33, 33, 33));
@@ -225,6 +238,18 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
 
         edValor.setBackground(new java.awt.Color(255, 255, 204));
 
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(33, 33, 33));
+        jLabel12.setText("Data inicio:");
+
+        edDataIni.setBackground(new java.awt.Color(255, 255, 204));
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(33, 33, 33));
+        jLabel13.setText("Data fim:");
+
+        edDataFim.setBackground(new java.awt.Color(255, 255, 204));
+
         javax.swing.GroupLayout pnCamposLayout = new javax.swing.GroupLayout(pnCampos);
         pnCampos.setLayout(pnCamposLayout);
         pnCamposLayout.setHorizontalGroup(
@@ -249,25 +274,37 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
                     .addGroup(pnCamposLayout.createSequentialGroup()
                         .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(pnCamposLayout.createSequentialGroup()
+                                .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(pnCamposLayout.createSequentialGroup()
+                                            .addComponent(edHoraIda, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(edHoraVolta))
+                                        .addComponent(jLabel6)
+                                        .addComponent(jLabel7)
+                                        .addComponent(edVeiculo, 0, 186, Short.MAX_VALUE)
+                                        .addComponent(edMotorisa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(pnCamposLayout.createSequentialGroup()
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel4)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                                    .addComponent(edHoraIda))
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(edCapacidade)
+                                    .addComponent(jLabel8)
+                                    .addGroup(pnCamposLayout.createSequentialGroup()
+                                        .addComponent(edValor)
+                                        .addGap(23, 23, 23))))
+                            .addGroup(pnCamposLayout.createSequentialGroup()
+                                .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(edDataIni, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(edHoraVolta)))
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(edVeiculo, 0, 186, Short.MAX_VALUE)
-                            .addComponent(edMotorisa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField4)
-                            .addComponent(jLabel8)
-                            .addGroup(pnCamposLayout.createSequentialGroup()
-                                .addComponent(edValor)
-                                .addGap(23, 23, 23))))
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(edDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(pnCamposLayout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -291,19 +328,25 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
                     .addComponent(edUniversidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(edDiaSemana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnCamposLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(edHoraIda, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edHoraVolta, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edValor, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(edDataIni, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnCamposLayout.createSequentialGroup()
-                        .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel8))
-                        .addGap(29, 29, 29)))
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(edDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(edValor, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edHoraVolta, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edHoraIda, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -315,18 +358,19 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(btAddCliente)
-                    .addComponent(btAddCliente1))
+                    .addComponent(edCapacidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btAddCliente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btAddCliente)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btSalvar)
-                    .addComponent(btCancelar))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btCancelar)
+                    .addComponent(btSalvar))
                 .addContainerGap())
         );
 
@@ -432,16 +476,17 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
         pnListaLayout.setVerticalGroup(
             pnListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnListaLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
                 .addGroup(pnListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnListaLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel5))
-                    .addGroup(pnListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(edBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btNovo1)))
+                        .addGap(12, 12, 12)
+                        .addGroup(pnListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(edBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btNovo1)))
+                    .addGroup(pnListaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btExcluir)
@@ -460,7 +505,7 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 667, Short.MAX_VALUE)
         );
 
         pack();
@@ -469,29 +514,46 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         if (validaCampo()) {
             viagem wViagem = new viagem();
-            /*wViagem.setCodigo(codigo);
-            wViagem.setNome(edNome.getText());
-            wViagem.setUF(edUF.getText());
-
-            estadoDAO wEstadoDAO = new estadoDAO();
+            
+            ComboItens ci = (ComboItens) edUniversidade.getSelectedItem();
+            wViagem.setOUniversidade(new universidadeDAO().consultarId(ci.getCodigo()));
+           
+            ci = (ComboItens) edDiaSemana.getSelectedItem();
+            wViagem.setDiaSemana(ci.getDescricao());
+            wViagem.setHoraSaida(edHoraIda.getText());
+            wViagem.setHoraVolta(edHoraVolta.getText());
+            wViagem.setValor(Float.valueOf(edValor.getText()));
+            
+            //ci = (ComboItens) edMotorisa.getSelectedItem();
+            //wViagem.setOFuncionario(new funcionarioDAO().consultarId(ci.getCodigo()));
+            
+            ci = (ComboItens) edVeiculo.getSelectedItem();
+            wViagem.setOVeiculo(new veiculoDAO().consultarId(ci.getCodigo()));
+            
+            wViagem.setCapacidade(Integer.parseInt(edCapacidade.getText()));
+            wViagem.setAClientes(GClientes);
+            wViagem.setDataIni(edDataIni.getText());
+            wViagem.setDataFim(edDataFim.getText());
+            
+            viagemDAO wViagemDAO = new viagemDAO();
 
             String retorno = null;
-            if (wEstado.getCodigo() == 0) {
-                retorno = wEstadoDAO.salvar(wEstado);
+            if (wViagem.getCodigo() == 0) {
+                retorno = wViagemDAO.salvar(wViagem);
             } else {
-                retorno = wEstadoDAO.atualizar(wEstado);
+                retorno = wViagemDAO.atualizar(wViagem);
             }
 
             if (retorno == null) {
                 JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
                 limpaCampos.limparCampos(pnCampos);
                 codigo = 0;
-                new estadoDAO().popularTabela(tbEstados, "");
+                new viagemDAO().popularTabela(tbEstados, "");
                 jTabbedPane1.setSelectedIndex(1);
             } else {
                 JOptionPane.showMessageDialog(null, "Problemas ao salvar registro!\n\n"
                     + "Mensagem técnica: \n" + retorno);
-            }*/
+            }
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 
@@ -542,10 +604,10 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-        /*codigo = 0;
+        codigo = 0;
         limpaCampos.limparCampos(pnCampos);
         jTabbedPane1.setSelectedIndex(0);
-        edNome.requestFocus();*/
+        edUniversidade.requestFocus();
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btNovo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovo1ActionPerformed
@@ -576,7 +638,6 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
                 AtualizaPassageiros();
             }
         }
-        
     }//GEN-LAST:event_btAddClienteActionPerformed
 
     private void btAddCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddCliente1ActionPerformed
@@ -638,6 +699,14 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
             return false;
         }else if (Formatacao.removerFormatacao(edValor.getText()).equals("")) {
             JOptionPane.showMessageDialog(null, "Campo valor mensal inválido!");
+            edValor.requestFocus();
+            return false;
+        }else if (Formatacao.removerFormatacao(edDataFim.getText()).equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo data final inválido!");
+            edValor.requestFocus();
+            return false;
+        } else if (Formatacao.removerFormatacao(edDataIni.getText()).equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo data inicio inválido!");
             edValor.requestFocus();
             return false;
         }  
@@ -713,6 +782,9 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
     private javax.swing.JButton btNovo1;
     private javax.swing.JButton btSalvar;
     private javax.swing.JTextField edBusca;
+    private javax.swing.JTextField edCapacidade;
+    private javax.swing.JFormattedTextField edDataFim;
+    private javax.swing.JFormattedTextField edDataIni;
     private javax.swing.JComboBox<String> edDiaSemana;
     private javax.swing.JFormattedTextField edHoraIda;
     private javax.swing.JFormattedTextField edHoraVolta;
@@ -722,6 +794,8 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> edVeiculo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -733,7 +807,6 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JPanel pnCampos;
     private javax.swing.JPanel pnLista;
     private javax.swing.JTable tbEstados;

@@ -12,15 +12,26 @@ public class viagem {
     private int codigo;
     private universidade OUniversidade;
     private String diaSemana;
-    private Time horaSaida;
-    private Time horaVolta;
+    private String horaSaida;
+    private String horaVolta;
     private funcionario OFuncionario;
     private veiculo OVeiculo;
     private Float Valor;
-    private Date dataIni;
-    private Date dataFim;
+    private String dataIni;
+    private String dataFim;
+    private int capacidade;
+    private String dataini;
+    private String data;
     private ArrayList<cliente> AClientes;
 
+    public int getCapacidade() {
+        return capacidade;
+    }
+
+    public void setCapacidade(int capacidade) {
+        this.capacidade = capacidade;
+    }
+    
     public int getCodigo() {
         return codigo;
     }
@@ -42,23 +53,7 @@ public class viagem {
     }
 
     public void setDiaSemana(String diaSemana) {
-        this.diaSemana = diaSemana;
-    }
-
-    public Time getHoraSaida() {
-        return horaSaida;
-    }
-
-    public void setHoraSaida(Time horaSaida) {
-        this.horaSaida = horaSaida;
-    }
-
-    public Time getHoraVolta() {
-        return horaVolta;
-    }
-
-    public void setHoraVolta(Time horaVolta) {
-        this.horaVolta = horaVolta;
+        this.diaSemana = diaSemana.toUpperCase().substring(0, 3);
     }
 
     public funcionario getOFuncionario() {
@@ -85,22 +80,6 @@ public class viagem {
         this.Valor = Valor;
     }
 
-    public Date getDataIni() {
-        return dataIni;
-    }
-
-    public void setDataIni(Date dataIni) {
-        this.dataIni = dataIni;
-    }
-
-    public Date getDataFim() {
-        return dataFim;
-    }
-
-    public void setDataFim(Date dataFim) {
-        this.dataFim = dataFim;
-    }
-
     public ArrayList<cliente> getAClientes() {
         return AClientes;
     }
@@ -117,5 +96,37 @@ public class viagem {
     public void RemoverCliente(cliente pCliente)
     {
         AClientes.remove(pCliente);
+    }
+
+    public String getHoraSaida() {
+        return horaSaida;
+    }
+
+    public void setHoraSaida(String horaSaida) {
+        this.horaSaida = horaSaida;
+    }
+
+    public String getHoraVolta() {
+        return horaVolta;
+    }
+
+    public void setHoraVolta(String horaVolta) {
+        this.horaVolta = horaVolta;
+    }
+
+    public String getDataIni() {
+        return dataIni;
+    }
+
+    public void setDataIni(String dataIni) {
+        this.dataIni = dataIni;
+    }
+
+    public String getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(String dataFim) {
+        this.dataFim = dataFim;
     }
 }

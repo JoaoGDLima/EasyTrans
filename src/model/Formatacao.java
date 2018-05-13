@@ -64,7 +64,7 @@ public class Formatacao {
         try {
             MaskFormatter m = new MaskFormatter();
             m.setPlaceholderCharacter(' ');
-            m.setMask("###0.00");
+            m.setMask("00.00");
             campo.setFormatterFactory(null);
             campo.setFormatterFactory(new DefaultFormatterFactory(m));
             campo.setValue(null);
@@ -175,6 +175,19 @@ public class Formatacao {
             MaskFormatter m = new MaskFormatter();
             m.setPlaceholderCharacter(' ');
             m.setMask("##.###.###/####-##");
+            campo.setFormatterFactory(null);
+            campo.setFormatterFactory(new DefaultFormatterFactory(m));
+            campo.setValue(null);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+    
+    public static void formatarCNH(JFormattedTextField campo) {
+        try {
+            MaskFormatter m = new MaskFormatter();
+            m.setPlaceholderCharacter(' ');
+            m.setMask("###########");
             campo.setFormatterFactory(null);
             campo.setFormatterFactory(new DefaultFormatterFactory(m));
             campo.setValue(null);
