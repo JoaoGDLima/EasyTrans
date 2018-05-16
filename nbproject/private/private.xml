@@ -5,7 +5,8 @@
         <group>
             <file>file:/home/joaogdlima/EasyTrans/src/dao/funcionarioDAO.java</file>
             <file>file:/home/joaogdlima/EasyTrans/src/model/cliente.java</file>
-            <file>file:/home/joaogdlima/EasyTrans/src/view/CadastroFuncionarioF.java</file>
+            <file>file:/home/joaogdlima/EasyTrans/src/view/CadastroViagemF.java</file>
+            <file>file:/home/joaogdlima/EasyTrans/src/dao/viagemDAO.java</file>
         </group>
     </open-files>
 </project-private>

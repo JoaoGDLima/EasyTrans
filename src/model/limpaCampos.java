@@ -20,9 +20,9 @@ public class limpaCampos {
             } else if (c[i] instanceof JTextField) {
                 JTextField field = (JTextField) c[i];
                 field.setText("");
-            } else if (c[i] instanceof JScrollPane) {
+            } /*else if (c[i] instanceof JScrollPane) {
                  ((JTextArea) ((JScrollPane) c[i]).getViewport().getComponent(0)).setText("");
-            } else if (c[i] instanceof JComboBox) {
+            } */else if (c[i] instanceof JComboBox) {
                 JComboBox cb = (JComboBox) c[i];
                 cb.setSelectedIndex(-1);
             } else if (c[i] instanceof JCheckBox) {

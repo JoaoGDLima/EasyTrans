@@ -19,7 +19,13 @@ public class funcionarioDAO implements IDAO_T<funcionario>{
     public String salvar(funcionario o) {
        try {
             Statement statement = ConexaoBD.getInstance().getConnection().createStatement();
-
+            
+            int wCodUsu = 0;
+            if(o.getUsuarioO()!=null)
+            {
+                wCodUsu = o.getUsuarioO().getCodigo(); 
+            }
+            
             String sql = "INSERT INTO funcionario (codigo, nome, cpf, cnh, rg, telefone, celular, usuario_codigo, observacao, inativo) " +
                          " VALUES (" + 
                          "default, " + 
@@ -29,7 +35,7 @@ public class funcionarioDAO implements IDAO_T<funcionario>{
                          "'" + o.getRg() + "', " + 
                          "'" + o.getTelefone() + "', " + 
                          "'" + o.getCelular() + "', " +  
-                         o.getUsuarioO().getCodigo() + ", " +  
+                         wCodUsu + ", " +  
                          "'" + o.getObservacao() + "', " +  
                          "'F')";
 

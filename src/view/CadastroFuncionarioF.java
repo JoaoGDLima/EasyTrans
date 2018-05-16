@@ -35,7 +35,10 @@ public class CadastroFuncionarioF extends javax.swing.JInternalFrame {
         Formatacao.formatarCNH(edCNH);
         
         edUsuario.removeAllItems();
-        new CombosDAO().popularCombo("usuario","codigo, email","","email", edUsuario);
+        new CombosDAO().popularCombo("usuario", "codigo, email", 
+                "codigo <> 1 " +
+                " and email <> 'admin' " +
+                " and not exists(select * from funcionario where funcionario.usuario_codigo = usuario.codigo)","email", edUsuario);
     }
 
 
@@ -161,6 +164,7 @@ public class CadastroFuncionarioF extends javax.swing.JInternalFrame {
 
         edCelular.setBackground(new java.awt.Color(255, 255, 204));
 
+        edUsuario.setBackground(new java.awt.Color(255, 255, 204));
         edUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout pnCamposLayout = new javax.swing.GroupLayout(pnCampos);
@@ -194,7 +198,7 @@ public class CadastroFuncionarioF extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(pnCamposLayout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(edRG, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE))))
+                                        .addComponent(edRG, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))))
                             .addGroup(pnCamposLayout.createSequentialGroup()
                                 .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
@@ -420,6 +424,11 @@ public class CadastroFuncionarioF extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
                 limpaCampos.limparCampos(pnCampos);
                 codigo = 0;
+                edUsuario.removeAllItems();
+                new CombosDAO().popularCombo("usuario", "codigo, email", 
+                "codigo <> 1 " +
+                " and email <> 'admin' " +
+                " and not exists(select * from funcionario where funcionario.usuario_codigo = usuario.codigo)","email", edUsuario);
                 new funcionarioDAO().popularTabela(tbFuncionarios, "");
                 jTabbedPane1.setSelectedIndex(1);
             } else {
@@ -505,6 +514,12 @@ public class CadastroFuncionarioF extends javax.swing.JInternalFrame {
             edUsuario.requestFocus();
             return false;
         }
+        
+        if (Formatacao.removerFormatacao(edCpf.getText()).equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo CPF inválido!");
+            edCpf.requestFocus();
+            return false;
+        }
 
         if (edNome.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Campo nome inválido!");
@@ -515,7 +530,7 @@ public class CadastroFuncionarioF extends javax.swing.JInternalFrame {
             edCpf.requestFocus();
             return false;
         } else if ((ciUsuario.getCodigo() <= 0)) {
-            JOptionPane.showMessageDialog(null, "Selecione um usuario cidade!");
+            JOptionPane.showMessageDialog(null, "Selecione um usuario !");
             edUsuario.requestFocus();
             return false;
         } else if (!Validacao.validarCelular(edCelular.getText())) {

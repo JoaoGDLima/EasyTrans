@@ -652,6 +652,18 @@ public class CadastroClienteF extends javax.swing.JInternalFrame {
             edEstado.requestFocus();
             return false;   
         }
+        
+        if (Formatacao.removerFormatacao(edCPF.getText()).equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo CPF inválido!");
+            edCPF.requestFocus();
+            return false;
+        }
+        
+        if (Formatacao.removerFormatacao(edDataNasc.getText()).equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo data de nascimento inválido!");
+            edDataNasc.requestFocus();
+            return false;
+        } 
 
         if (edNome.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Campo nome inválido!");

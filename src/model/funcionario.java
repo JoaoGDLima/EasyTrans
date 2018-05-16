@@ -35,6 +35,8 @@ public class funcionario {
     }
 
     public funcionario() {
+        this.usuarioO = new usuario();
+        this.usuarioO.setCodigo(0);
     }
     
     

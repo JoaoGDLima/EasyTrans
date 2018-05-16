@@ -64,7 +64,7 @@ public class Formatacao {
         try {
             MaskFormatter m = new MaskFormatter();
             m.setPlaceholderCharacter(' ');
-            m.setMask("00.00");
+            m.setMask("##.##");
             campo.setFormatterFactory(null);
             campo.setFormatterFactory(new DefaultFormatterFactory(m));
             campo.setValue(null);
@@ -222,6 +222,18 @@ public class Formatacao {
         }
     }
     
+        public static String formatarCelular(String campo) {
+        String wCelularFormatado = campo;
+        try {
+            MaskFormatter m = new MaskFormatter("(##)#####-####");
+            m.setValueContainsLiteralCharacters(false);
+            wCelularFormatado = m.valueToString(campo);      
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return wCelularFormatado;
+    }
+    
     public static void formatarCEP(JFormattedTextField campo) {
         try {
             MaskFormatter m = new MaskFormatter();
@@ -283,7 +295,7 @@ public class Formatacao {
                 retorno = retorno + dado.charAt(i);
             }
         }
-        return (retorno);
+        return (retorno.replaceAll(" ",""));
     }
 
     public static String getDataAtual() {

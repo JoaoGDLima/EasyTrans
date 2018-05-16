@@ -20,7 +20,7 @@ public class SelecionarCliente extends javax.swing.JDialog {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         
-        new clienteDAO().popularTabela(tbClientes, "");
+        new clienteDAO().popularTabelaAdd(tbClientes, "");
     }
 
 
@@ -153,7 +153,7 @@ public class SelecionarCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btNovo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovo1ActionPerformed
-        new cidadeDAO().popularTabela(tbClientes, edBusca.getText());
+        new clienteDAO().popularTabelaAdd(tbClientes, edBusca.getText());
     }//GEN-LAST:event_btNovo1ActionPerformed
 
     public static void main(String args[]) {

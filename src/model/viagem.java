@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import dao.*;
 
 public class viagem {
     private int codigo;
@@ -19,17 +20,37 @@ public class viagem {
     private Float Valor;
     private String dataIni;
     private String dataFim;
-    private int capacidade;
-    private String dataini;
-    private String data;
     private ArrayList<cliente> AClientes;
+    private boolean inativo;
 
-    public int getCapacidade() {
-        return capacidade;
+    public viagem() {
     }
 
-    public void setCapacidade(int capacidade) {
-        this.capacidade = capacidade;
+    public viagem(int codigo, int Universidade, Time horaSaida, Time horaVolta, int Funcionario, int Veiculo, Float Valor, Date dataIni, Date dataFim, ArrayList<cliente> AClientes, String inativo) {
+        this.codigo = codigo;
+        this.OUniversidade = new universidadeDAO().consultarId(Universidade);
+        this.horaSaida = horaSaida.toString();
+        this.horaVolta = horaVolta.toString();
+        this.OFuncionario = new funcionarioDAO().consultarId(Funcionario);
+        this.OVeiculo = new veiculoDAO().consultarId(Veiculo);
+        this.Valor = Valor;
+        this.dataIni = Formatacao.ajustaDataDMA(dataIni.toString());
+        this.dataFim = Formatacao.ajustaDataDMA(dataFim.toString());
+        this.AClientes = AClientes;
+        
+        this.inativo = false;
+        
+        if (inativo.equals("V")) {
+            this.inativo = true;
+        }
+    }
+
+    public boolean isInativo() {
+        return inativo;
+    }
+
+    public void setInativo(boolean inativo) {
+        this.inativo = inativo;
     }
     
     public int getCodigo() {
