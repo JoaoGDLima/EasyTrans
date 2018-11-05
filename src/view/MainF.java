@@ -1,10 +1,15 @@
 package view;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.math.BigInteger;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import model.unit;
 import javax.swing.JDesktopPane;
 import model.universidade;
@@ -13,6 +18,11 @@ public class MainF extends javax.swing.JFrame {
     public MainF() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
+        
+        // coloca uma figura na barra de título da janela
+        URL url = this.getClass().getResource("/publico/Icone_140.png");
+        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(imagemTitulo);
     }
 
     @SuppressWarnings("unchecked")
@@ -30,15 +40,30 @@ public class MainF extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem15 = new javax.swing.JMenuItem();
+        jMenuItem16 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Easytrans - Plataforma para gerenciamento de transporte universitário.");
+
+        jDesktopPane1.setBackground(new java.awt.Color(255, 255, 255));
+        ImageIcon lIcon =  new ImageIcon(getClass().getResource("/publico/logo.png"));
+        Image lImage = lIcon.getImage();
+        jDesktopPane1 = new javax.swing.JDesktopPane(){
+            public void paintComponent(Graphics pG){
+                pG.drawImage(lImage, (getWidth()/2)-256, (getHeight()/2)-256, 512, 512, this);
+            }
+        };
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -140,6 +165,27 @@ public class MainF extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem8);
+        jMenu1.add(jSeparator1);
+
+        jMenuItem13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jMenuItem13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/publico/Listar_cidades_25.png"))); // NOI18N
+        jMenuItem13.setText("Listar estados");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem13);
+
+        jMenuItem14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jMenuItem14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/publico/Listar_cidades_25.png"))); // NOI18N
+        jMenuItem14.setText("Listar cidades");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem14);
 
         menu.add(jMenu1);
 
@@ -175,6 +221,27 @@ public class MainF extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem12);
+        jMenu2.add(jSeparator2);
+
+        jMenuItem15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jMenuItem15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/publico/Lista_estados_25.png"))); // NOI18N
+        jMenuItem15.setText("Relatório de viagens");
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem15);
+
+        jMenuItem16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jMenuItem16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/publico/Lista_estados_25.png"))); // NOI18N
+        jMenuItem16.setText("Relatório de contatos");
+        jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem16ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem16);
 
         menu.add(jMenu2);
 
@@ -289,6 +356,34 @@ public class MainF extends javax.swing.JFrame {
         unit.setPositionCenter(ifrContasReceb);
         ifrContasReceb.setVisible(true);
     }//GEN-LAST:event_jMenuItem12ActionPerformed
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        ListarEstadosF ifrListarEstados = new ListarEstadosF();
+        jDesktopPane1.add(ifrListarEstados);
+        unit.setPositionCenter(ifrListarEstados);
+        ifrListarEstados.setVisible(true);
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        ListarCidadesF ifrListarCidades = new ListarCidadesF();
+        jDesktopPane1.add(ifrListarCidades);
+        unit.setPositionCenter(ifrListarCidades);
+        ifrListarCidades.setVisible(true);
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
+
+    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+        RelatorioViagemF ifrRelatorioViagem = new RelatorioViagemF();
+        jDesktopPane1.add(ifrRelatorioViagem);
+        unit.setPositionCenter(ifrRelatorioViagem);
+        ifrRelatorioViagem.setVisible(true);
+    }//GEN-LAST:event_jMenuItem15ActionPerformed
+
+    private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
+        RelatorioContratoF ifrRelatorioContrato = new RelatorioContratoF();
+        jDesktopPane1.add(ifrRelatorioContrato);
+        unit.setPositionCenter(ifrRelatorioContrato);
+        ifrRelatorioContrato.setVisible(true);
+    }//GEN-LAST:event_jMenuItem16ActionPerformed
     
     public void CadastarUsuario()
     {
@@ -344,6 +439,10 @@ public class MainF extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -352,6 +451,8 @@ public class MainF extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenuBar menu;
     // End of variables declaration//GEN-END:variables
 }

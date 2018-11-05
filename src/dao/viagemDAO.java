@@ -22,7 +22,7 @@ public class viagemDAO implements IDAO_T<viagem> {
             Statement statement = ConexaoBD.getInstance().getConnection().createStatement();
 
             String sql = "INSERT INTO cronograma (codigo, universidade_codigo, diasemana, horasaida, horavolta, "
-                    + "funcionario_codigo, veiculo_codigo, valor, dataini, datafim, inativo) VALUES ("
+                    + "funcionario_codigo, veiculo_codigo, valor, dataini, datafim, contratogerado, inativo) VALUES ("
                     + "default, "
                     + o.getOUniversidade().getCodigo() + ", "
                     + "'" + o.getDiaSemana() + "', "
@@ -33,6 +33,7 @@ public class viagemDAO implements IDAO_T<viagem> {
                     + o.getValor() + ", "
                     + "'" + Formatacao.ajustaDataAMD(o.getDataIni()) + "', "
                     + "'" + Formatacao.ajustaDataAMD(o.getDataFim()) + "', "
+                    + "'F', " 
                     + "'F') RETURNING codigo";
 
             System.out.println("SQL: " + sql);
@@ -68,7 +69,48 @@ public class viagemDAO implements IDAO_T<viagem> {
 
     @Override
     public String atualizar(viagem o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                try {
+            Statement statement = ConexaoBD.getInstance().getConnection().createStatement();
+
+            String sql = "UPDATE cronograma SET " +
+                        " universidade_codigo = " + o.getOUniversidade().getCodigo() + ", " +
+                        " diasemana = '" + o.getDiaSemana() + "', " + 
+                        " horasaida = '" + o.getHoraSaida() + "', " +
+                        " horavolta = '" + o.getHoraVolta() + "', " +
+                        " funcionario_codigo = " + o.getOFuncionario().getCodigo() + ", " + 
+                        " veiculo_codigo = " + o.getOVeiculo().getCodigo() + ", " + 
+                        " valor = " + o.getValor() + ", " +
+                        " dataini = '" + Formatacao.ajustaDataAMD(o.getDataIni()) + "', " +
+                        " datafim = '" + Formatacao.ajustaDataAMD(o.getDataFim()) + "' " +
+                        " WHERE codigo = " + o.getCodigo();
+
+            System.out.println("SQL: " + sql);
+
+            int retorno = statement.executeUpdate(sql);
+            
+            statement.execute("delete from passageiro where viagem_codigo = " + o.getCodigo());
+            
+            sql = "INSERT INTO passageiro (viagem_codigo, cliente_codigo) VALUES ";
+            String wIns = "";
+            for (int i = 0; i < o.getAClientes().size(); i++) {
+
+                wIns = wIns + "(" + o.getCodigo() + ", " + o.getAClientes().get(i).getCodigo() + ")";
+
+                if (i < o.getAClientes().size() - 1) {
+                    wIns = wIns + ",";
+                }
+            }
+
+            if (!wIns.equals("")) {
+                statement.executeUpdate(sql + wIns);
+            }
+
+            return null;
+
+        } catch (Exception e) {
+            System.out.println("Erro ao atualizar viagem: " + e);
+            return e.toString();
+        }
     }
 
     @Override
@@ -169,6 +211,42 @@ public class viagemDAO implements IDAO_T<viagem> {
                          " OR datafim BETWEEN '" + pDataIni + "' AND '" + pDataFim + "')" + 
                          " AND inativo <> 'V'" +
                          " AND " + pWhere;
+
+            System.out.println("SQL: " + sql);
+
+            resultadoQ = statement.executeQuery(sql);
+
+            if (resultadoQ.next()) {
+                wRetorno = false;
+            }
+
+            return wRetorno;
+
+        } catch (Exception e) {
+            System.out.println("Erro consultar obj viagem: " + e);
+            return false;
+        }
+    }
+    
+    public boolean validarPassageiro(int pCliente, int pViagem, String pDataIni, String pDataFim, String pHoraIda, String pHoraVolta, String pDiaSemana) {
+        try {
+            boolean wRetorno = true;
+            
+            Statement statement = ConexaoBD.getInstance().getConnection().createStatement();
+
+            String sql = "SELECT * " + 
+                         " FROM cronograma " + 
+                         " INNER JOIN passageiro ON passageiro.viagem_codigo = cronograma.codigo" +
+                         " WHERE diasemana  = '" + pDiaSemana + "'" +
+                         " AND (horasaida BETWEEN '" + pHoraIda + "' AND '" + pHoraVolta + "'" +
+                         " OR horasaida BETWEEN '" + pHoraVolta + "' AND '" + pHoraIda + "'" +
+                         " OR horasaida BETWEEN '" + pHoraIda + "' AND '" + pHoraVolta + "'" +
+                         " OR horasaida BETWEEN '" + pHoraVolta + "' AND '" + pHoraIda + "')" +
+                         " AND (dataini BETWEEN '" + pDataIni + "' AND '" + pDataFim + "'" +
+                         " OR datafim BETWEEN '" + pDataIni + "' AND '" + pDataFim + "')" + 
+                         " AND inativo <> 'V'" +
+                         " AND passageiro.cliente_codigo = " + pCliente + 
+                         " AND cronograma.codigo <> " + pViagem;
 
             System.out.println("SQL: " + sql);
 

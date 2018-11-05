@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import view.MainF;
 
  public class usuario {
+        public static String senhaDefault = "********";
         private int codigo;
         private String email;
         private String senha;
@@ -70,16 +71,5 @@ import view.MainF;
     public void setInativo(Boolean inativo) {
         this.inativo = inativo;
     }
-    
-    public String SenhaMD5(){
-         MessageDigest m = null;
-         try {
-             m = MessageDigest.getInstance("MD5");
-         } catch (NoSuchAlgorithmException ex) {
-             Logger.getLogger(MainF.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         m.update(this.senha.getBytes(), 0, this.senha.length());
-         return new BigInteger(1, m.digest()).toString(16);
-     }
 
 }

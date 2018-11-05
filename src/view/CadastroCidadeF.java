@@ -34,7 +34,7 @@ public class CadastroCidadeF extends javax.swing.JInternalFrame {
         new CombosDAO().popularCombo("estado","codigo, nome","","nome", edEstado);
         
         edCep.setFont(new java.awt.Font("Tahoma", 0, 14));
-        edCep.setSize(165, 25);
+        edCep.setSize(165, 23);
     }
 
     @SuppressWarnings("unchecked")
@@ -60,8 +60,6 @@ public class CadastroCidadeF extends javax.swing.JInternalFrame {
         btEditar = new javax.swing.JButton();
         btNovo = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        cbAtivos = new javax.swing.JCheckBox();
 
         setTitle("Cadastro de cidade");
 
@@ -251,15 +249,6 @@ public class CadastroCidadeF extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("Listar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        cbAtivos.setText("Apenas ativos");
-
         javax.swing.GroupLayout pnListaLayout = new javax.swing.GroupLayout(pnLista);
         pnLista.setLayout(pnListaLayout);
         pnListaLayout.setHorizontalGroup(
@@ -270,9 +259,7 @@ public class CadastroCidadeF extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnListaLayout.createSequentialGroup()
-                        .addContainerGap(38, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
+                        .addContainerGap(115, Short.MAX_VALUE)
                         .addComponent(btNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -280,16 +267,11 @@ public class CadastroCidadeF extends javax.swing.JInternalFrame {
                         .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnListaLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addGroup(pnListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnListaLayout.createSequentialGroup()
-                                .addComponent(cbAtivos)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(pnListaLayout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(edBusca)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnPesquisar)))))
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(edBusca)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPesquisar)))
                 .addContainerGap())
         );
 
@@ -306,16 +288,13 @@ public class CadastroCidadeF extends javax.swing.JInternalFrame {
                     .addGroup(pnListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(edBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnPesquisar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 3, Short.MAX_VALUE)
-                .addComponent(cbAtivos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btExcluir)
                     .addComponent(btEditar)
-                    .addComponent(btNovo)
-                    .addComponent(jButton1))
+                    .addComponent(btNovo))
                 .addContainerGap())
         );
 
@@ -329,7 +308,7 @@ public class CadastroCidadeF extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
         );
 
         pack();
@@ -452,40 +431,6 @@ public class CadastroCidadeF extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_edEstadoPopupMenuWillBecomeVisible
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.dispose();
-
-        String situacao = "";
-
-        if (cbAtivos.isSelected()) {
-            situacao = "F";
-        } else {
-            situacao = "V";
-        }
-
-        // chamada de relatório, COM parâmetros
-        try {
-            // Compila o relatorio
-            JasperReport relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/list_cidades.jrxml"));
-
-            // Mapeia campos de parametros para o relatorio, mesmo que nao existam
-//            Map parametros = new HashMap();
-            Map<String, Object> mapa = new HashMap<String, Object>();
-            
-            // adiciona parametros
-            // parametros.put("status", situacao);
-            mapa.put("status", situacao);
-
-            // Executa relatoio
-            JasperPrint impressao = JasperFillManager.fillReport(relatorio, mapa, ConexaoBD.getInstance().getConnection());
-
-            // Exibe resultado em video
-            JasperViewer.viewReport(impressao, false);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório: " + e);
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private boolean validaCampo(){
         boolean wRetorno = true;
 
@@ -519,12 +464,10 @@ public class CadastroCidadeF extends javax.swing.JInternalFrame {
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btSalvar;
     private javax.swing.JButton btnPesquisar;
-    private javax.swing.JCheckBox cbAtivos;
     private javax.swing.JTextField edBusca;
     private javax.swing.JFormattedTextField edCep;
     private javax.swing.JComboBox<String> edEstado;
     private javax.swing.JTextField edNome;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

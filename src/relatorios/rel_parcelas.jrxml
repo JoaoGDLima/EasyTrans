@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_parcelas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c7c4779c-9f20-4359-b65d-354010089ff7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="contrato" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="situacao" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select seq, TO_CHAR(datavenc, 'dd/mm/yyyy') datavenc, coalesce(TO_CHAR(datapag, 'dd/mm/yyyy'), '') datapag, valor
+from contasreceb
+where contrato_codigo = $P{contrato}
+and (situacao = $P{situacao} or $P{situacao} is null)]]>
+	</queryString>
+	<field name="seq" class="java.lang.Integer"/>
+	<field name="datavenc" class="java.lang.String"/>
+	<field name="datapag" class="java.lang.String"/>
+	<field name="valor" class="java.math.BigDecimal"/>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="2" width="555" height="20" forecolor="#FFFFFF" backcolor="#99CCFF" uuid="3441103a-26df-4afd-9cd5-7552bdd102e3"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="2" width="100" height="20" uuid="98ac0335-5a6d-4873-9ba5-8fb2ea7a8cb4"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Parcela]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="2" width="138" height="20" uuid="ab98f596-aeed-4faf-aa23-c10e4efc4bc8"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de vencimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="2" width="131" height="20" uuid="f3500e05-e91f-47d8-95ec-02e90fec85b1"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de pagamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="369" y="2" width="186" height="20" uuid="db4b6ab3-0b91-4063-b4ad-3f97a6c195e5"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor da parcela]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="a87c1beb-dc76-4638-8d9d-768d747b4782"/>
+				<textFieldExpression><![CDATA[$F{seq}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="138" height="20" uuid="3509234c-cd5f-4d29-b9c5-c87e151a2fc7"/>
+				<textFieldExpression><![CDATA[$F{datavenc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="238" y="0" width="131" height="20" uuid="89e91ea1-707f-4fcc-8122-d1eeedcc7e45"/>
+				<textFieldExpression><![CDATA[$F{datapag}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="369" y="0" width="186" height="20" uuid="18125972-bad3-4ef7-b963-53ed4cba6a43"/>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="72530a9a-2602-42d6-b3b8-75ba262b85d2"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

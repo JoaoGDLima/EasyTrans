@@ -31,7 +31,6 @@ public class estadoDAO implements IDAO_T<estado>{
             int retorno = statement.executeUpdate(sql);
 
             return null;
-
         } catch (Exception e) {
             System.out.println("Erro ao inserir: " + e);
             return e.toString();

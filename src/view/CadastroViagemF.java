@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import model.Calendario;
 import model.ComboItens;
 import model.Formatacao;
 import model.Validacao;
@@ -31,7 +32,7 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
     
     public CadastroViagemF() {
         initComponents();
-        
+        this.setResizable(false);
         edHoraIda.setFont(new java.awt.Font("Tahoma", 0, 14));
         edHoraVolta.setFont(new java.awt.Font("Tahoma", 0, 14));
         edValor.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -70,15 +71,15 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
         btSalvar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        edUniversidade = new javax.swing.JComboBox<>();
+        edUniversidade = new javax.swing.JComboBox<String>();
         jLabel2 = new javax.swing.JLabel();
-        edDiaSemana = new javax.swing.JComboBox<>();
+        edDiaSemana = new javax.swing.JComboBox<String>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        edMotorisa = new javax.swing.JComboBox<>();
+        edMotorisa = new javax.swing.JComboBox<String>();
         jLabel7 = new javax.swing.JLabel();
-        edVeiculo = new javax.swing.JComboBox<>();
+        edVeiculo = new javax.swing.JComboBox<String>();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         edCapacidade = new javax.swing.JTextField();
@@ -94,6 +95,8 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
         edDataIni = new javax.swing.JFormattedTextField();
         jLabel13 = new javax.swing.JLabel();
         edDataFim = new javax.swing.JFormattedTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         pnLista = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         edBusca = new javax.swing.JTextField();
@@ -143,7 +146,7 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
         edUniversidade.setBackground(new java.awt.Color(255, 255, 204));
         edUniversidade.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         edUniversidade.setForeground(new java.awt.Color(33, 33, 33));
-        edUniversidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        edUniversidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(33, 33, 33));
@@ -152,7 +155,7 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
         edDiaSemana.setBackground(new java.awt.Color(255, 255, 204));
         edDiaSemana.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         edDiaSemana.setForeground(new java.awt.Color(33, 33, 33));
-        edDiaSemana.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        edDiaSemana.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(33, 33, 33));
@@ -169,7 +172,7 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
         edMotorisa.setBackground(new java.awt.Color(255, 255, 204));
         edMotorisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         edMotorisa.setForeground(new java.awt.Color(33, 33, 33));
-        edMotorisa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        edMotorisa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(33, 33, 33));
@@ -178,7 +181,7 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
         edVeiculo.setBackground(new java.awt.Color(255, 255, 204));
         edVeiculo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         edVeiculo.setForeground(new java.awt.Color(33, 33, 33));
-        edVeiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        edVeiculo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         edVeiculo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 edVeiculoItemStateChanged(evt);
@@ -254,13 +257,36 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
         jLabel12.setForeground(new java.awt.Color(33, 33, 33));
         jLabel12.setText("Data inicio:");
 
+        edDataIni.setEditable(false);
         edDataIni.setBackground(new java.awt.Color(255, 255, 204));
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(33, 33, 33));
         jLabel13.setText("Data fim:");
 
+        edDataFim.setEditable(false);
         edDataFim.setBackground(new java.awt.Color(255, 255, 204));
+        edDataFim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edDataFimActionPerformed(evt);
+            }
+        });
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButton1.setText("Primeiro semestre");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButton2.setText("Segundo semestre");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnCamposLayout = new javax.swing.GroupLayout(pnCampos);
         pnCampos.setLayout(pnCamposLayout);
@@ -297,7 +323,12 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(edDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(pnCamposLayout.createSequentialGroup()
+                                        .addComponent(edDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton2))))
                             .addGroup(pnCamposLayout.createSequentialGroup()
                                 .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(pnCamposLayout.createSequentialGroup()
@@ -328,6 +359,8 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
 
         pnCamposLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btCancelar, btSalvar});
 
+        pnCamposLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2});
+
         pnCamposLayout.setVerticalGroup(
             pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnCamposLayout.createSequentialGroup()
@@ -341,14 +374,16 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
                     .addComponent(edDiaSemana, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnCamposLayout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edDataIni, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel12)
                     .addGroup(pnCamposLayout.createSequentialGroup()
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                            .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(edDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(edDataIni, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -528,6 +563,7 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
             if (validaCampo()) {
                 viagem wViagem = new viagem();
                 
+                wViagem.setCodigo(codigo);
                 ComboItens ci = (ComboItens) edUniversidade.getSelectedItem();
                 wViagem.setOUniversidade(new universidadeDAO().consultarId(ci.getCodigo()));
                 
@@ -680,8 +716,24 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
                         
                         if (!wExiste)
                         {
-                            GClientes.add(wSelecionarCliente.getTextSearch());
-                            AtualizaPassageiros();
+                            viagemDAO wViagemDAO = new viagemDAO();
+                            ComboItens ciDiaSemana = (ComboItens) edDiaSemana.getSelectedItem();
+                            
+                            if (!wViagemDAO.validarPassageiro(wSelecionarCliente.getTextSearch().getCodigo(), codigo, 
+                                Formatacao.ajustaDataAMD(edDataIni.getText()), 
+                                Formatacao.ajustaDataAMD(edDataFim.getText()), 
+                                edHoraIda.getText(), 
+                                edHoraVolta.getText(), 
+                                ciDiaSemana.getDescricao().toUpperCase().substring(0, 3))) 
+                            {
+
+                                JOptionPane.showMessageDialog(null, "Cliente em uso por outra viagem no periodo de dia e hora informados!");
+                            }
+                            else
+                            {
+                                GClientes.add(wSelecionarCliente.getTextSearch());
+                                AtualizaPassageiros();
+                            }
                         }
                         else
                         {
@@ -723,6 +775,18 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_edVeiculoItemStateChanged
+
+    private void edDataFimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edDataFimActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edDataFimActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        calcularIntervaloDatas(1);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        calcularIntervaloDatas(2);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     
     private boolean validaCampo() throws ParseException {
@@ -807,7 +871,8 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
         
         viagemDAO wViagemDAO = new viagemDAO();
         
-        if (!wViagemDAO.validarDado(" funcionario_codigo = " + ciMotorista.getCodigo(), 
+        if (!wViagemDAO.validarDado(" funcionario_codigo = " + ciMotorista.getCodigo() +
+                " and cronograma.codigo <> " + codigo, 
                 Formatacao.ajustaDataAMD(edDataIni.getText()), 
                 Formatacao.ajustaDataAMD(edDataFim.getText()), 
                 edHoraIda.getText(), 
@@ -820,7 +885,8 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
         }
         
                 
-        if (!wViagemDAO.validarDado(" veiculo_codigo = " + ciVeiculo.getCodigo(), 
+        if (!wViagemDAO.validarDado(" veiculo_codigo = " + ciVeiculo.getCodigo() +
+                " and cronograma.codigo <> " + codigo, 
                 Formatacao.ajustaDataAMD(edDataIni.getText()), 
                 Formatacao.ajustaDataAMD(edDataFim.getText()), 
                 edHoraIda.getText(), 
@@ -893,6 +959,27 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
             }
         }
     }
+    
+     private void calcularIntervaloDatas(int pSemestre)
+    {
+        Calendario cal = new Calendario();
+        String wDataAtual = cal.obterDataAtualDMA();
+        
+        SimpleDateFormat sdData = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar dataIni = Calendar.getInstance();
+        
+        int mes = dataIni.getTime().getMonth();        
+        if(pSemestre == 1)
+        {
+            edDataIni.setText("01/01/" + wDataAtual.split("/")[2]);
+            edDataFim.setText("30/06/" + wDataAtual.split("/")[2]);
+        }
+        else
+        {
+            edDataIni.setText("01/07/" + wDataAtual.split("/")[2]);
+            edDataFim.setText("31/12/" + wDataAtual.split("/")[2]);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAddCliente;
@@ -914,6 +1001,8 @@ public class CadastroViagemF extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> edUniversidade;
     private javax.swing.JFormattedTextField edValor;
     private javax.swing.JComboBox<String> edVeiculo;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;

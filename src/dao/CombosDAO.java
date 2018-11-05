@@ -67,4 +67,32 @@ public class CombosDAO {
             }
         }
     }
+
+    public void popularComboSituacao(JComboBox combo) {
+        ArrayList<ComboItens> AItens = new ArrayList();
+        AItens.add(new ComboItens(0, "Todos"));
+        AItens.add(new ComboItens(1, "Ativo"));
+        AItens.add(new ComboItens(2, "Inativo"));
+        
+        for (int i = 0; i < AItens.size(); i++) 
+        {
+            combo.addItem(AItens.get(i));
+        }
+    }
+    
+    public void popularComboSituacaoParc(JComboBox combo) {
+        ArrayList<ComboItens> AItens = new ArrayList();
+        AItens.add(new ComboItens(0, "Todos"));
+        AItens.add(new ComboItens(1, "Abertas"));
+        AItens.add(new ComboItens(2, "Pagas"));
+        
+        for (int i = 0; i < AItens.size(); i++) 
+        {
+            combo.addItem(AItens.get(i));
+        }
+    }
+    
+    public void AddComboItem(JComboBox combo, int codigo, String descricao) {
+        combo.addItem(new ComboItens(codigo, descricao));
+    }
 }

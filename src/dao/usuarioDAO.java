@@ -7,6 +7,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import model.ConexaoBD;
+import model.Criptografia;
 import model.usuario;
 import model.IDAO_T;
 
@@ -22,7 +23,7 @@ public class usuarioDAO implements IDAO_T<usuario> {
             String sql = "INSERT INTO usuario (codigo, email, senha, tipo, inativo) VALUES ("
                     + "default, "
                     + "'" + o.getEmail() + "', "
-                    + "'" + o.getSenha() + "',"
+                    + "'" + Criptografia.criptografar(o.getSenha()) + "',"
                     + "'" + o.getTipo() + "',"
                     + "'F'"
                     + ")";
@@ -43,10 +44,15 @@ public class usuarioDAO implements IDAO_T<usuario> {
     public String atualizar(usuario o) {
         try {
             Statement statement = ConexaoBD.getInstance().getConnection().createStatement();
-
+            String wSenha = "";
+            
+            if (!o.getSenha().equals(usuario.senhaDefault)) {
+                wSenha =  "senha = '" + Criptografia.criptografar(o.getSenha()) + "', ";  
+            }
+ 
             String sql = "UPDATE usuario " + 
                          "SET email = '" + o.getEmail() + "', " + 
-                         "senha = '" + o.getSenha() + "', " +
+                         wSenha + 
                          "tipo = '" + o.getTipo() + "' "+  
                          "WHERE codigo = " + o.getCodigo();
 
@@ -108,7 +114,7 @@ public class usuarioDAO implements IDAO_T<usuario> {
             if (resultadoQ.next()) {
                 usuario wUsuario = new usuario(id,
                         resultadoQ.getString("email"),
-                        resultadoQ.getString("senha"),
+                        usuario.senhaDefault,
                         resultadoQ.getString("tipo"),
                         resultadoQ.getString("inativo")
                 );
@@ -217,7 +223,7 @@ public class usuarioDAO implements IDAO_T<usuario> {
 
             String sql = "SELECT * FROM usuario " + 
                          " WHERE email =  '" + pEmail + "'" + 
-                         " AND senha = '" + pSenha + "'" +
+                         " AND senha = '" + Criptografia.criptografar(pSenha) + "'" +
                          " AND inativo <> 'V'";
 
             System.out.println("SQL: " + sql);
